@@ -1,4 +1,8 @@
 # RADS (Request Approve / Deny Service)
+[![License](https://img.shields.io/github/license/oresat/uniclogs-rads)](./LICENSE)
+[![Issues](https://img.shields.io/github/issues/oresat/uniclogs-rads)](https://github.com/oresat/uniclogs-rads/issues)
+![Git Actions](https://github.com/oresat/uniclogs-rads/workflows/RADS%20Unit%20Tests/badge.svg)
+
 Mangages requests to use OreSat live. Allows for modification of a PSQL schedule and allows for an override to reserve a pass for PSAS through a curses GUI. 
 
 # Prerequisite Services:
