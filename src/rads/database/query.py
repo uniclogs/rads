@@ -3,9 +3,10 @@ A nice place to hold all database query functions.
 """
 
 from datetime import datetime
+from os import getenv
 from sqlalchemy import func, exc
 from loguru import logger
-import reverse_geocoder as rg
+from geopy.geocoders import OpenMapQuest
 from pass_calculator.calculator import pass_overlap
 from .models import Request, Pass, Tle, Session
 from .request_data import RequestData
@@ -54,8 +55,8 @@ def _fill_request_data(results):
             coor = (r.pass_data.gs_latitude_deg,  r.pass_data.gs_longitude_deg)
             coordinates.append(coor)
 
-        # NOTE this is way faster to do all at once, then one at a time.
-        loc = rg.search(coordinates, verbose=False)
+        geocoder = OpenMapQuest(getenv('GEOPY_API_KEY'))
+        loc = [geocoder.reverse(coord).raw for coord in coordinates]
 
         for i in range(len(requests)):
             requests[i].geo = loc[i]
