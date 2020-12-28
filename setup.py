@@ -45,7 +45,7 @@ setuptools.setup(
     python_requires='>=3.8.5',
     entry_points={
         "console_scripts": [
-            "rads = rads.ui.main_menu:main"
+            f"{rads.APP_NAME} = rads.__main__:main"
         ]
     }
 )

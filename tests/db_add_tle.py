@@ -1,7 +1,6 @@
-import sys
-import getopt
-sys.path.insert(0, '../src/rads/database')
-from models import Tle, Session
+import sys; sys.path.insert(0, '..')
+from rads.database.models import Tle, Session
+import pytest
 
 
 TEST_TLE_HEADER = "ISS (ZARYA)"
@@ -9,6 +8,7 @@ TEST_TLE_LINE_1 = "1 25544U 98067A   20199.71986111 -.00000291  00000-0  28484-5
 TEST_TLE_LINE_2 = "2 25544  51.6429 197.3485 0001350 125.7534 225.4894 15.49513771236741"
 
 
+@pytest.mark.skip(reason='Turn DB tests into magic mock')
 def add_tle():
     session = Session()
     new_tle = Tle(
@@ -22,6 +22,7 @@ def add_tle():
     session.close()
 
 
+@pytest.mark.skip(reason='Turn DB tests into magic mock')
 def clear_db():
     session = Session()
 
@@ -34,22 +35,22 @@ def clear_db():
     session.close()
 
 
-if __name__ == '__main__':
-    opts, argv = getopt.getopt(sys.argv[1:], "hc")
-    for o, a in opts:
-        if o == '-h':
-            print("""
-            Flags
-            -h   : help message
-            -c   : clean db
-            None : gererate 100 non randomize requests
-            """)
-            exit(0)
-        elif o == '-c':
-            clear_db()
-            exit(0)
-        else:
-            print("Unkown flag, run with -h for help message")
-            exit(1)
-
-    add_tle()
+# if __name__ == '__main__':
+#     opts, argv = getopt.getopt(sys.argv[1:], "hc")
+#     for o, a in opts:
+#         if o == '-h':
+#             print("""
+#             Flags
+#             -h   : help message
+#             -c   : clean db
+#             None : gererate 100 non randomize requests
+#             """)
+#             exit(0)
+#         elif o == '-c':
+#             clear_db()
+#             exit(0)
+#         else:
+#             print("Unkown flag, run with -h for help message")
+#             exit(1)
+#
+#     add_tle()

@@ -3,7 +3,7 @@
 [![Issues](https://img.shields.io/github/issues/oresat/uniclogs-rads)](https://github.com/oresat/uniclogs-rads/issues)
 ![Git Actions](https://github.com/oresat/uniclogs-rads/workflows/RADS%20Unit%20Tests/badge.svg)
 
-Mangages requests to use OreSat live. Allows for modification of a PSQL schedule and allows for an override to reserve a pass for PSAS through a curses GUI. 
+Mangages requests to use OreSat live. Allows for modification of a PSQL schedule and allows for an override to reserve a pass for PSAS through a curses GUI.
 
 # Prerequisite Services:
 Services Required to run before can RADS can be used
@@ -49,7 +49,7 @@ Make to run all sql scripts in uniclogs-software/db_schema to properly create th
 
 #### Usage
 ```
-Arrow keys to move the highlight selection arround(universal). Enter to use a RADS feature 
+Arrow keys to move the highlight selection arround(universal). Enter to use a RADS feature
 
 ***Approve/Deny Request(Incoming requests to use OreSat live that need to be approved or denied)***
 'a' is used to accept a request and will automatically deny overlapping incoming requests.

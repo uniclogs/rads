@@ -1,13 +1,11 @@
-import sys
+import sys; sys.path.insert(0, '../src/rads/database')
 import random
 import string
 import getopt
 from datetime import datetime, timedelta
-sys.path.insert(0, '../src/rads/database')
-from models import Request, Pass, Session
-sys.path.insert(0, '../../pass_calculator')
 import pass_calculator.calculator as pc
-
+from rads.database.models import Request, Pass, Session
+import pytest
 
 tle = [
     "1 25544U 98067A   20185.75040611  .00000600  00000-0  18779-4 0  9992",
@@ -32,7 +30,8 @@ def randomword(length):
     return ''.join(random.choice(letters) for i in range(length))
 
 
-def generated_passes(num: int):
+@pytest.mark.skip(reason='Turn DB tests into magic mock')
+def test_generated_passes(num: int):
     generated_passes = []
 
     for i in range(num):
@@ -62,7 +61,8 @@ def generated_passes(num: int):
     return generated_passes
 
 
-def insert_into_db(generated_passes, random_status=False):
+@pytest.mark.skip(reason='Turn DB tests into magic mock')
+def test_insert_into_db(generated_passes, random_status=False):
     session = Session()
     ret = []
 
@@ -129,7 +129,8 @@ def insert_into_db(generated_passes, random_status=False):
     return ret
 
 
-def clear_db():
+@pytest.mark.skip(reason='Turn DB tests into magic mock')
+def test_clear_db():
     session = Session()
 
     result = session.query(Request).all()
@@ -146,36 +147,36 @@ def clear_db():
     session.close()
 
 
-if __name__ == '__main__':
-    num = 100
-    random_status = False
-
-    opts, argv = getopt.getopt(sys.argv[1:], "hcrn:")
-    for o, a in opts:
-        if o == '-h':
-            print("""
-            Flags
-            -h   : help message
-            -r   : randomize is_approved and is_sent statuses
-            -n x : generate x passes where x > 0 and x < 10000
-            -c   : clean db
-            None : gererate 100 non randomize requests
-            """)
-            exit(0)
-        elif o == '-c':
-            clear_db()
-            exit(0)
-        elif o == '-r':
-            random_status = True
-        elif o == '-n':
-            v = int(a)
-            if v < 0 or v >= 10000:
-                print("Can't be negative or greater than 10000")
-                exit(0)
-            num = v
-        else:
-            print("Unkown flag, run with -h for help message")
-            exit(1)
-
-    pass_list = generated_passes(num)
-    req = insert_into_db(pass_list, random_status)
+# if __name__ == '__main__':
+#     num = 100
+#     random_status = False
+#
+#     opts, argv = getopt.getopt(sys.argv[1:], "hcrn:")
+#     for o, a in opts:
+#         if o == '-h':
+#             print("""
+#             Flags
+#             -h   : help message
+#             -r   : randomize is_approved and is_sent statuses
+#             -n x : generate x passes where x > 0 and x < 10000
+#             -c   : clean db
+#             None : gererate 100 non randomize requests
+#             """)
+#             exit(0)
+#         elif o == '-c':
+#             clear_db()
+#             exit(0)
+#         elif o == '-r':
+#             random_status = True
+#         elif o == '-n':
+#             v = int(a)
+#             if v < 0 or v >= 10000:
+#                 print("Can't be negative or greater than 10000")
+#                 exit(0)
+#             num = v
+#         else:
+#             print("Unkown flag, run with -h for help message")
+#             exit(1)
+#
+#     pass_list = generated_passes(num)
+#     req = insert_into_db(pass_list, random_status)
