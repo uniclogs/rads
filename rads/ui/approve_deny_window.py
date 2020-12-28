@@ -34,13 +34,13 @@ def print_adrequest(stdscreen):
     panel = curses.newpad(height, width)
     adrequest = query_new_requests()
 
-
     # main title
     description = "Accept Deny Requests(Ordered By Date Created)"
     stdscreen.addstr(0, (width+1)//2 - len(description)//2, description)
 
     # key layout
-    info = "Arrow Keys: To Move, a: Accept, d: Deny, w:Reset to Pending c: Exit, s: Save and Exit"
+    info = "Arrow Keys: To Move, a: Accept, d: Deny, w:Reset to Pending" \
+           " c: Exit, s: Save and Exit"
     stdscreen.addstr(1, (width+1)//2 - len(info)//2, info)
     stdscreen.addstr(3, 2, RequestHeader)
 
@@ -68,18 +68,21 @@ def print_adrequest(stdscreen):
                 schedule_pass = Schedule_Pass(adrequest)
                 schedule_pass.schedule_all()
             except Exception as e:
-                logger.error("cosmos command interface failed with: {}".format(e))
-        elif len(adrequest) > 0 and key == ord('a'):  # Approve request
+                logger.error(f"cosmos command interface failed with: {e}")
+        elif len(adrequest) > 0 and key == ord('a'):
+            # Approve request
             if len(adrequest[ad_index].db_approved_overlap) == 0:
                 adrequest[ad_index].is_approved = True
                 for index, row in enumerate(adrequest):
                     if adrequest[index].id in adrequest[ad_index].new_overlap:
                         adrequest[index].is_approved = False
             panel.touchwin()
-        elif len(adrequest) > 0 and key == ord('d'):  # Deny request
+        elif len(adrequest) > 0 and key == ord('d'):
+            # Deny request
             adrequest[ad_index].is_approved = False
             panel.touchwin()
-        elif len(adrequest) > 0 and key == ord('w'):  # To undo all the approved requests
+        elif len(adrequest) > 0 and key == ord('w'):
+            # Undo all the approved requests
             for index, row in enumerate(adrequest):
                 if adrequest[index].id in adrequest[ad_index].new_overlap:
                     adrequest[index].is_approved = None

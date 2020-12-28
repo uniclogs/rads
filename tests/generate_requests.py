@@ -1,7 +1,6 @@
 import sys; sys.path.insert(0, '../src/rads/database')
 import random
 import string
-import getopt
 from datetime import datetime, timedelta
 import pass_calculator.calculator as pc
 from rads.database.models import Request, Pass, Session

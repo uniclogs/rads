@@ -97,8 +97,7 @@ class Schedule_Pass:
         Attributes
         ----------
         passRequestList : list retrieved from pass_request database
-        numberOfRequests : total number of passes to schedule 
-
+        numberOfRequests : total number of passes to schedule
         """
         set_replay_mode(False)
         connect_interface('ENGR_LINK_INT')
@@ -112,7 +111,9 @@ class Schedule_Pass:
         return print("\n{} requests(s) sent.".format(self.numberOfRequests))
 
     def cancel_all(self):
-        """ Iterates through list to cancel all pass requests staged in satellite
+        """
+        Iterates through list to cancel all pass requests staged
+        in satellite
 
         Attributes
         ----------
@@ -128,43 +129,14 @@ class Schedule_Pass:
         response = input("y/n: ")
         if response.lower() == 'y' or response.lower() == 'yes':
             for row in range(0, self.numberOfRequests):
-                if self.passRequestList[row].is_approved is False\
-                    and self.passRequestList[row].is_sent is True:
+                if self.passRequestList[row].is_approved is False \
+                        and self.passRequestList[row].is_sent is True:
                     self.cancel(self.passRequestList[row])
 
             shutdown_cmd_tlm()
-            return print("{} requests(s) deleted.".format(self.numberOfRequests))
+            return print(f"{self.nnumberOfRequests} requests(s) deleted.")
         else:
             print("List not deleted")
             shutdown_cmd_tlm()
 
             return self.passRequestList
-
-
-#if __name__ == "__main__":
-    #sp = Schedule_Pass(request)
-    #sp.show_list()
-    #sp.schedule_all()
-    #sp.cancel_all()
-
-
-
-# for testing purposes: 
-"""
-All paths relative from uniclogs-software git root directory
-To run this script,
-    Terminal 1:
-    1. ./cosmos/mock_oresat/oresat_listen_for_commands.py
-    Terminal 2:
-    1. cd cosmos
-    2. run `ruby Launcher`
-    3. start COSMOS Command and Telemetry Server
-    4. click "Connect" on ENGR_LINK_INT
-    Now both COSMOS and Terminal 1 should indicate they are connected
-    Terminal 3:
-    1. cd cosi
-    2. ./schedule_pass.py
-    You should see command show up in COSMOS!
-"""
-
-
