@@ -1,6 +1,7 @@
+import getopt
+import pytest
 import sys; sys.path.insert(0, '..')
 from rads.database.models import Tle, Session
-import pytest
 
 
 TEST_TLE_HEADER = "ISS (ZARYA)"
@@ -35,22 +36,22 @@ def clear_db():
     session.close()
 
 
-# if __name__ == '__main__':
-#     opts, argv = getopt.getopt(sys.argv[1:], "hc")
-#     for o, a in opts:
-#         if o == '-h':
-#             print("""
-#             Flags
-#             -h   : help message
-#             -c   : clean db
-#             None : gererate 100 non randomize requests
-#             """)
-#             exit(0)
-#         elif o == '-c':
-#             clear_db()
-#             exit(0)
-#         else:
-#             print("Unkown flag, run with -h for help message")
-#             exit(1)
-#
-#     add_tle()
+if __name__ == '__main__':
+    opts, argv = getopt.getopt(sys.argv[1:], "hc")
+    for o, a in opts:
+        if o == '-h':
+            print("""
+            Flags
+            -h   : help message
+            -c   : clean db
+            None : gererate 100 non randomize requests
+            """)
+            exit(0)
+        elif o == '-c':
+            clear_db()
+            exit(0)
+        else:
+            print("Unkown flag, run with -h for help message")
+            exit(1)
+
+    add_tle()
